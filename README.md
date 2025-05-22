@@ -19,7 +19,7 @@ https://community.platformio.org/t/esp32-s3-zero-does-not-work-on-platformio/402
 * CS        → GPIO9
 * BLK       → GPIO8
 
-
+ピンは3.3vピンを基準に適当に配置。結構好きに変更可能。<br>
 lovyan03/LovyanGFX@^1.2.7 を使用
 
 BLをGPI08に繋いでいるが、LovyanGFXだとBLの指定ができなかったので、classのコンストラクタに
