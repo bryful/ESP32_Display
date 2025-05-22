@@ -1,6 +1,5 @@
 ﻿# ESP32にST7789ディスプレイをつなぐ
-
-aliで買った"ESP32-S3 supermini"にSPIディスプレイST7789をつなぐテスト<br>
+aliで買った"<b>ESP32-S3 supermini</b>"にSPIディスプレイST7789をつなぐテスト<br>
 <br>
 
 # esp32-s3-fh4r2について
