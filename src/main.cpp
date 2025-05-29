@@ -1,10 +1,11 @@
 #include <LittleFS.h>
 #include <vector>
-#include "LGFX_esp32_s3_fh4r2_SPI_ST7789.hpp"
+// #include "LGFX_esp32_s3_fh4r2_SPI_ST7789.hpp"
+#include "LGFX_esp32_s3_fh4r2_SPI_ST7789_28.hpp"
 #include "FsSerial.hpp"
 
 // 準備したクラスのインスタンスを作成します。
-LGFX_esp32_s3_fh4r2_SPI_ST7789 display;
+LGFX_esp32_s3_fh4r2_SPI_ST7789_28 display;
 
 // -----------------------------------------------------------------------------
 void GetSerialCMD()
@@ -60,7 +61,7 @@ void GetSerialCMD()
 
     // ExtPrintln(String((char *)dataBuffer.data()));
     srl.SendText("return:" + String((char *)dataBuffer.data()));
-    aaa = true;
+    // aaa = true;
   }
 
   else

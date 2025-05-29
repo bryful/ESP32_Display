@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "XIAO_ESP32S3_Display",
+			"path": "../XIAO_ESP32S3_Display"
+		}
+	],
+	"settings": {}
+}
