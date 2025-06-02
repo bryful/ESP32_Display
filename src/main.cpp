@@ -1,12 +1,40 @@
-#include <LittleFS.h>
+// #include <LittleFS.h>
 #include <vector>
-// #include "LGFX_esp32_s3_fh4r2_SPI_ST7789.hpp"
-#include "LGFX_esp32_s3_fh4r2_SPI_ST7789_28.hpp"
+#include "DHTesp.h" // Click here to get the library: http://librarymanager/All#DHTesp
+// #include <Adafruit_Sensor.h>
+// #include <DHT.h>
+// #include <DHT_U.h>
+
+#include "LGFX_esp32_s3_fh4r2_SPI_ST7789.hpp"
+// #include "LGFX_esp32_s3_fh4r2_SPI_ST7789_28.hpp"
 #include "FsSerial.hpp"
 
 // 準備したクラスのインスタンスを作成します。
-LGFX_esp32_s3_fh4r2_SPI_ST7789_28 display;
+LGFX_esp32_s3_fh4r2_SPI_ST7789 display;
+DHTesp dht;
+//  Uncomment the type of sensor in use:
+// #define DHTTYPE DHT11 // DHT 11
+// #define DHTTYPE    DHT22     // DHT 22 (AM2302)
+// #define DHTTYPE    DHT21     // DHT 21 (AM2301)
+// #define DHTPIN 5 // Digital pin connected to the DHT sensor
 
+// DHT_Unified dht(DHTPIN, DHTTYPE);
+unsigned long mm = 0;
+void PrintData()
+{
+
+  display.fillScreen(TFT_BLACK);
+  display.setTextSize(3);
+  display.setTextColor(TFT_RED);
+  display.setCursor(5, 20);
+  display.printf("t:%1.2f", dht.getTemperature());
+  display.setCursor(5, 45);
+  display.printf("h:%1.2f", dht.getHumidity());
+  display.setCursor(5, 70);
+  display.printf("%s", dht.getStatusString());
+  display.setCursor(5, 90);
+  display.printf("%d", dht.getPin());
+}
 // -----------------------------------------------------------------------------
 void GetSerialCMD()
 {
@@ -73,22 +101,31 @@ void GetSerialCMD()
 void setup(void)
 {
   Serial.begin(115200);
+  Serial.setTimeout(2000);
   // myTransfer.begin(Serial);
 
   display.init();
 
   display.fillScreen(TFT_RED);
 
-  LittleFS.begin();
-  display.drawJpgFile(LittleFS, "/mimi.jpg", 0, 0);
+  // LittleFS.begin();
+  //  display.drawJpgFile(LittleFS, "/mimi.jpg", 0, 0);
   display.setTextSize(2);
   display.setTextColor(TFT_WHITE);
+
+  dht.setup(1, DHTesp::DHT11); // Connect DHT sensor to GPIO 17
+  PrintData();
+  mm = millis() + 2000;
 }
 
 void loop(void)
 {
-  Serial.begin(115200);
-  Serial.setTimeout(2000);
 
   GetSerialCMD();
+  unsigned long now = millis();
+  if (now > mm)
+  {
+    PrintData();
+    mm = millis() + 2000;
+  }
 }
