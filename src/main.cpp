@@ -22,18 +22,19 @@ DHTesp dht;
 unsigned long mm = 0;
 void PrintData()
 {
-
+  display.startWrite();
   display.fillScreen(TFT_BLACK);
-  display.setTextSize(3);
+  display.setTextSize(4);
   display.setTextColor(TFT_RED);
   display.setCursor(5, 20);
   display.printf("t:%1.2f", dht.getTemperature());
-  display.setCursor(5, 45);
+  display.setCursor(5, 50);
   display.printf("h:%1.2f", dht.getHumidity());
-  display.setCursor(5, 70);
+  display.setCursor(5, 80);
   display.printf("%s", dht.getStatusString());
-  display.setCursor(5, 90);
+  display.setCursor(5, 110);
   display.printf("%d", dht.getPin());
+  display.endWrite();
 }
 // -----------------------------------------------------------------------------
 void GetSerialCMD()
@@ -110,6 +111,7 @@ void setup(void)
 
   // LittleFS.begin();
   //  display.drawJpgFile(LittleFS, "/mimi.jpg", 0, 0);
+  display.setRotation(1);
   display.setTextSize(2);
   display.setTextColor(TFT_WHITE);
 

@@ -50,7 +50,7 @@ class LGFX_esp32_s3_fh4r2_SPI_ST7789 : public lgfx::LGFX_Device
                                  // lgfx::Bus_Parallel8  _bus_instance;   // 8ビットパラレルバスのインスタンス
 
     // バックライト制御が可能な場合はインスタンスを用意します。(必要なければ削除)
-    //  lgfx::Light_PWM     _light_instance;
+    lgfx::Light_PWM _light_instance;
 
     // タッチスクリーンの型にあったインスタンスを用意します。(必要なければ削除)
     //  lgfx::Touch_FT5x06           _touch_instance; // FT5206, FT5306, FT5406, FT6206, FT6236, FT6336, FT6436
@@ -146,17 +146,15 @@ public:
             _panel_instance.config(cfg);
         }
 
-        /*
-        { // バックライト制御の設定を行います。（必要なければ削除）
-          auto cfg = _light_instance.config();    // バックライト設定用の構造体を取得します。
-          cfg.pin_bl = 32;              // バックライトが接続されているピン番号
-          cfg.invert = false;           // バックライトの輝度を反転させる場合 true
-          cfg.freq   = 44100;           // バックライトのPWM周波数
-          cfg.pwm_channel = 7;          // 使用するPWMのチャンネル番号
-          _light_instance.config(cfg);
-          _panel_instance.setLight(&_light_instance);  // バックライトをパネルにセットします。
+        {                                        // バックライト制御の設定を行います。（必要なければ削除）
+            auto cfg = _light_instance.config(); // バックライト設定用の構造体を取得します。
+            cfg.pin_bl = 8;                      // バックライトが接続されているピン番号
+            cfg.invert = false;                  // バックライトの輝度を反転させる場合 true
+            cfg.freq = 44100;                    // バックライトのPWM周波数
+            cfg.pwm_channel = 7;                 // 使用するPWMのチャンネル番号
+            _light_instance.config(cfg);
+            _panel_instance.setLight(&_light_instance); // バックライトをパネルにセットします。
         }
-    */
 
         /*
         { // タッチスクリーン制御の設定を行います。（必要なければ削除）
@@ -190,8 +188,8 @@ public:
 
         /// Pin8を出力に設定し、HIGH（3.3V）にする
         // これは、ESP32 DevKitCのGPIO8を使用して、ST7789のバックライトを制御するための設定です。
-        pinMode(8, OUTPUT);
-        digitalWrite(8, HIGH);
+        // pinMode(8, OUTPUT);
+        // digitalWrite(8, HIGH);
     }
 };
 
